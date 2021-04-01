@@ -1,11 +1,10 @@
 # Server Side Request Forgery (SSRF) Checklist
 
-<img src="images/ssrf.png" width="320px" align="left"/>
+<img src="images/ssrf.png" align="left"/>
 
-Server-Side Request Forgery (SSRF) allows an attacker to have a server perform network calls in the context of that server. Common exploits will communicate to backend services via HTTP, but other protocols are also possible via protocol smuggling. Impact of SSRF can vary, but can be especially severe in cloud environments due to cloud provider's metadata services revealing sensitive data. <br /><br />
+Server-Side Request Forgery (SSRF) allows an attacker to have a server perform network calls in the context of that server. Common exploits will communicate to backend services via HTTP, but other protocols are also possible via protocol smuggling.
 
-
-:warning: The best way to protect against SSRF is to not process user supplied URLs. If you must, this can help cover some common vectors.
+Impact of SSRF can vary, but can be especially severe in cloud environments due to cloud provider's metadata services revealing sensitive data. Avoid processing user supplied URLs if possible. Otherwise this checklist can help cover some common vectors.
 
 ## Mitigation Checklist
 - [ ] Ensure that IP deny lists are comprehensive
