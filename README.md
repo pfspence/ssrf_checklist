@@ -18,8 +18,6 @@ Impact of SSRF can vary, but can be especially severe in cloud environments due 
 - [ ] Ensure CR-LF & Unicode characters get encoded correctly
 - [ ] Minimize user controlled data that is processed
 
-:info: If there is a vector missing, feel free to open an issue or PR.
-
 ### Ensure that IP deny lists are comprehensive
 
 There's probably not a legitimate use case for a user to have a server request something in the private IP space, the loopback address, or the AWS metadata endpoint. Ensure that you have all the following IPs in your disallow list.
@@ -155,3 +153,6 @@ http://myserver.com/xFF/x2E/xFF/x2E/passwd
 ### Minimize user controlled data that is processed
 
 Nothing to test here. Just a note to evaluate if any user controlled parameters can be removed to reduce risk.
+
+
+:Warning: This list attempts to be comprehensive. Feel free to open an issue or PR for missing or incomplete vectors.
