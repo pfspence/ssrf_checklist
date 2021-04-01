@@ -135,7 +135,7 @@ http://1.1.1.1 &@2.2.2.2# @3.3.3.3/
 http://127.0.0.1\tfoo.google.com
 ```
 
-Ref: https://www.blackhat.com/docs/us-17/thursday/us-17-Tsai-A-New-Era-Of-SSRF-Exploiting-URL-Parser-In-Trending-Programming- Languages.pdf
+Ref: https://www.blackhat.com/docs/us-17/thursday/us-17-Tsai-A-New-Era-Of-SSRF-Exploiting-URL-Parser-In-Trending-Programming-Languages.pdf
 
 ### Ensure CR-LF & Unicode characters get encoded correctly
 
@@ -154,5 +154,5 @@ http://myserver.com/xFF/x2E/xFF/x2E/passwd
 
 Nothing to test here. Just a note to evaluate if any user controlled parameters can be removed to reduce risk.
 
-
-:Warning: This list attempts to be comprehensive. Feel free to open an issue or PR for missing or incomplete vectors.
+<br><br>
+:warning: This list attempts to be comprehensive. Feel free to open an issue or PR for missing or incomplete vectors.
