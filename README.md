@@ -18,7 +18,7 @@ Impact of SSRF can vary, but can be especially severe in cloud environments due 
 - [ ] Ensure CR-LF & Unicode characters get encoded correctly
 - [ ] Minimize user controlled data that is processed
 
-### Ensure that IP deny lists are comprehensive
+## Ensure that IP deny lists are comprehensive
 
 There's probably not a legitimate use case for a user to have a server request something in the private IP space, the loopback address, or the AWS metadata endpoint. Ensure that you have all the following IPs in your disallow list.
 
@@ -30,7 +30,7 @@ There's probably not a legitimate use case for a user to have a server request s
 | 192.168.0.0/16 | Private IP Address Block |
 | 169.254.169.254/32 | AWS Metadata Endpoint |
 
-### Enforce only defined protocols are processed (E.g. only HTTP/HTTPS)
+## Enforce only defined protocols are processed (E.g. only HTTP/HTTPS)
 
 Configure the service to only use explicitly defined protocols. E.g. only allow HTTP/HTTPS. Not defining the protocol can allow protocol smuggling.
 
@@ -53,7 +53,7 @@ Connection: close
 Im the request body now
 ```
 
-### Ensure that DNS name resolutions don’t bypass any checks
+## Ensure that DNS name resolutions don’t bypass any checks
 
 DNS rebinding attacks will resolve subdomains to internal IP addresses. Sites like xip.io provide this functionality. You can use this for testing. Ensure these resolutions will also be blocked by IP disallow lists.
 
@@ -61,7 +61,7 @@ DNS rebinding attacks will resolve subdomains to internal IP addresses. Sites li
 |---|---|
 | http://169.254.169.254.xip.io/ | http://169.254.169.254 |
 
-### Ensure that HTTP redirects don’t bypass any checks
+## Ensure that HTTP redirects don’t bypass any checks
 
 An attacker may host a server where they can set the response headers of a request to point to internal IPs. URL shortening services like bitly also can provide this functionality. You can use this for testing. Ensure redirects will also be blocked by IP disallow lists.
 
@@ -80,7 +80,7 @@ IPv4 can be represented as IPv6 addresses. Make sure these don’t bypass IP dis
 | 69.254.169.254 | 0:0:0:0:0:ffff:a9fe:a9fe |
 
 
-### Ensure that uncommon representation of IPs don’t bypass any checks
+## Ensure that uncommon representation of IPs don’t bypass any checks
 
 Many libraries and binaries will process IPs represented as 32 bit ints, hex, or octal. Make sure that these don’t bypass the IP disallow lists.
 
@@ -98,18 +98,16 @@ PING 2130706433 (127.0.0.1) 56(84) bytes of data.
 64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.046 ms
 ```
 
-### Ensure user controlled data is the expected type
+## Ensure user controlled data is the expected type
 
 ```
-axios.request(req.data.url).then(function(res) {
-
-})
+axios.request(req.data.url).then(function(res) {...})
 ```
 Some JS http client functions accept either a string or config object to create a request. An attacker could set the url parameter to be a config object. Similar issues can exist in other languages when assuming user input type. Ensure all user data is the expected data type.
 
 Note: The impact of this vector can be more severe if the docker daemon is accessible from the app. Axios and some other JS request libraries support communicating over Unix sockets (See here). This results in RCE.
 
-### Ensure abusing URL parsers doesn’t bypass checks
+## Ensure "abusing URL parsers" vectors don’t bypass checks
 
 Ensure that the URL that was parsed and validated is the same that will be fetched by http client.
 
@@ -117,7 +115,7 @@ Ensure that the URL that was parsed and validated is the same that will be fetch
 http://myvalidserver.com:8080@attackerserver.com
 ```
 
-Most URL parsing libs will evaluate the server as attackerserver.com The following is vulnerable to allow an attacker to specify the host of the request.
+By including an `@`, most URL parsing libs will evaluate the server portion of the URL as `attackerserver.com` The following is vulnerable to allow an attacker to specify the host of the request.
 
 ```
 axios.get(`http://myvalidserver.com:8080${req.data.path}`)
@@ -137,7 +135,7 @@ http://127.0.0.1\tfoo.google.com
 
 Ref: https://www.blackhat.com/docs/us-17/thursday/us-17-Tsai-A-New-Era-Of-SSRF-Exploiting-URL-Parser-In-Trending-Programming-Languages.pdf
 
-### Ensure CR-LF & Unicode characters get encoded correctly
+## Ensure CR-LF & Unicode characters get encoded correctly
 
 Make sure CR-LF characters stay encoded and don’t allow CR-LF injection
 ```
@@ -150,7 +148,7 @@ http://myserver.com//passwd
 http://myserver.com/xFF/x2E/xFF/x2E/passwd
 ```
 
-### Minimize user controlled data that is processed
+## Minimize user controlled data that is processed
 
 Nothing to test here. Just a note to evaluate if any user controlled parameters can be removed to reduce risk.
 
