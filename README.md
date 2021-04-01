@@ -1,1 +1,1 @@
-# ssrf_checklist
+# Server Side Request Forgery (SSRF) Checklist
